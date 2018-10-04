@@ -69,13 +69,18 @@
     \renewcommand\today{{\number\day} de\space\ifcase\month\or
     Enero\or Febrero\or Marzo\or Abril\or
     Mayo\or Junio\or Julio\or Agosto\or
-    Septiembre\or Noviembre\or Diciembre\or
+    Septiembre\or Octubre\or Noviembre\or Diciembre\or
     abenduak\fi~de {\number\year}}
     \def\@theirakaslea{Profesor(a): }
     \def\@theikasturtea{A\~no: }
     \def\@thetel{Tel\'efono: }
     \def\@theeposta{E-mail: }}
 \DeclareOption{en}{
+	\renewcommand\today{{\number\day} de\space\ifcase\month\or
+    January\or February\or March\or April\or
+    May\or June\or July\or August\or
+    September\or October\or November\or 
+	December\fi~de {\number\year}}
     \def\@theirakaslea{Lecturer: }
     \def\@theikasturtea{Year: }
     \def\@thetel{Telephone: }
