@@ -1,7 +1,7 @@
   %% Configuration Parameters
 
 % Folder containing the images
-folder = "C:\Users\Mikel\Dropbox\docencia vision 2018\alumnos\DALMAU CHERINO MIKEL\Desafio2\martillos";
+folder = "C:\Users\Mikel\Dropbox\docencia vision 2018\alumnos\DALMAU CHERINO MIKEL\Desafio2-3-4\martillos";
 
 % Value for Gaussian filtering, negative to skip step
 sigma = -2; 

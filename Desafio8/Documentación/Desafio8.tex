@@ -1,0 +1,183 @@
+
+% LaTeX Language and campus name and format package
+\documentclass[es,gi]{ifirak}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+% ERABILIKO DIREN PAKETEAK %
+
+% listings pakage is for code formating
+\usepackage{listings}
+% Paquete for acents and other special characters
+% It is not necesary to use all this packages add or remove those you are interested on
+\usepackage[utf8]{inputenc}
+\usepackage{colortbl}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{amsfonts}
+\usepackage{makeidx}
+\usepackage{adjustbox}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+% Definition of colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{gray}{rgb}{0.85,0.85,0.85}
+\definecolor{white}{rgb}{1,1,1}
+\definecolor{purple}{rgb}{0.51,0,0.25}
+\definecolor{orange}{rgb}{0.255,0.178,0.102}
+\definecolor{mygreen}{RGB}{28,172,0} 
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    %numbers=left,%
+    %numberstyle={\tiny \color{black}},% size of the numbers
+    %numbersep=20pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+    backgroundcolor=\color{lightgray},
+}
+
+\DeclareMathSizes{10}{10}{10}{10}
+
+\graphicspath{imagenes}
+\renewcommand{\contentsname}{Indice}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+% Course year
+\ikasturtea{2018 - 2019}
+% Subject or course name
+\irakasgaia{Visión por Computador}
+% Title
+\title{Desafíos 5, 6 y 7}
+% Name of Author
+\author{Mikel Dalmau}
+
+\maketitle
+
+
+
+%\section{Código}
+
+\tableofcontents
+
+\pagebreak
+\section{Enunciados}
+
+
+\pagebreak
+\subsection{Código completo desafío 7}
+\begin{lstlisting}
+imagen_validacion = imread('validacion.gif');
+numRows = 1200;
+numCols = 1200;
+
+wavelengthMin = 4/sqrt(2);
+wavelengthMax = hypot(numRows,numCols);
+n = floor(log2(wavelengthMax/wavelengthMin));
+wavelength = 2.^(0:(n-2)) * wavelengthMin;
+
+deltaTheta = 45;
+orientation = 0:deltaTheta:(180-deltaTheta);
+g = gabor(wavelength, orientacion);
+gabormag = imgaborfilt(imagen_validacion,g);
+
+for i = 1:length(g)
+    sigma = 0.5*g(i).Wavelength;
+    K = 3;
+    gabormag(:,:,i) = imgaussfilt(gabormag(:,:,i),K*sigma); 
+end
+
+% When constructing Gabor feature sets for classification, it is useful to add a map of spatial location information in both X and Y. This additional information allows the classifier to prefer groupings which are close together spatially.
+X = 1:numCols;
+Y = 1:numRows;
+[X,Y] = meshgrid(X,Y);
+featureSet = cat(3,gabormag,X);
+featureSet = cat(3,featureSet,Y);
+
+%Normalize the features to be zero mean, unit variance.
+numPoints = numRows*numCols;
+X = reshape(featureSet,numRows*numCols,[]);
+
+%indices = kmeans(muestra,16);
+X = bsxfun(@minus, X, mean(X));
+X = bsxfun(@rdivide,X,std(X));
+
+
+L = kmeans(X,16,'Replicates',5);
+
+%% MOstrar resultado
+L = reshape(L,[numRows numCols]);
+figure
+imshow(label2rgb(L))
+
+\end{lstlisting}
+\begin{thebibliography}{arauak}
+	
+	\bibitem[1]{key-1} Matlab documentación oficial:\textit{es.mathworks.com}
+	
+\end{thebibliography}
+
+
+
+\end{document}
